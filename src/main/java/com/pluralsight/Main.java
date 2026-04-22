@@ -1,17 +1,47 @@
 package com.pluralsight;
 
+import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Search();
+    }
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+    public static void Search() {
+        Scanner scanner = new Scanner(System.in);
+
+
+        boolean running = true;
+        try {
+            FileWriter fWriter = new FileWriter("key-logger.txt");
+            LocalDateTime timeLocal = LocalDateTime.now();
+            DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String time = timeLocal.format(formatter1);
+            fWriter.write(time + " launch" + "\n");
+
+            while (running) {
+                LocalDateTime rightAboutNow = LocalDateTime.now();
+                String programTime = rightAboutNow.format(formatter1);
+                System.out.print("Enter a search term (X to exit): ");
+                String userInput = scanner.nextLine();
+                if (userInput.equals("X")) {
+                    System.out.println("You have exited the program.");
+                    running = false;
+                    fWriter.write(programTime + " exit");
+                    fWriter.close();
+                }
+                else {
+                    fWriter.write(programTime + " search : " + userInput +"\n");
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Something went wrong bro!");
         }
+
     }
 }
